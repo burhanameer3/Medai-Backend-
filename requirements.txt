@@ -6,3 +6,4 @@ passlib[bcrypt]
 python-jose      # for JWT (or pyjwt)
 python-multipart # for OAuth2 form parsing
 alembic
+email-validator

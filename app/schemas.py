@@ -1,19 +1,8 @@
-from typing import Annotated
-from pydantic import BaseModel, StringConstraints
+from typing import Annotated, Optional
+from pydantic import BaseModel, constr, EmailStr
 
-UsernameStr = Annotated[str, StringConstraints(
-    min_length=3,
-    max_length=50,
-    pattern=r"^[A-Za-z0-9_.-]+$"
-)]
-
-EmailStr = Annotated[str, StringConstraints(
-    min_length=5,
-    max_length=100,
-    pattern=r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-)]
-
-PasswordStr = Annotated[str, StringConstraints(min_length=8, max_length=72)]
+UsernameStr = constr(min_length=3, max_length=50, pattern=r"^[A-Za-z0-9_.-]+$")
+PasswordStr = constr(min_length=8, max_length=72)
 
 class UserCreate(BaseModel):
     username: UsernameStr
@@ -30,12 +19,11 @@ class UserOut(BaseModel):
     email: str
     is_active: bool
 
-    class Config:
-        from_attributes = True
+    model_config = {"from_attributes": True}
 
 class Token(BaseModel):
     access_token: str
-    refresh_token: str | None = None
+    refresh_token: Optional[str] = None
     token_type: str = "bearer"
 
 class RefreshToken(BaseModel):
