@@ -1,0 +1,4 @@
+-- database: ./test.db
+
+SELECT * FROM users
+ORDER BY `email` DESC;

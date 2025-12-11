@@ -26,11 +26,10 @@ def register(user_in: schemas.UserCreate, db: Session = Depends(get_db)):
     if not created:
         raise HTTPException(status_code=400, detail="User registration failed")
     return created
-
+ 
 @router.post("/token", response_model=schemas.Token)
 def login_for_access_token(login_data: schemas.UserLogin, db: Session = Depends(get_db)):
     user = crud.get_user_by_email(db, login_data.email)
-    
     if not user or not security.verify_password(login_data.password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
