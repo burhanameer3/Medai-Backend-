@@ -48,5 +48,36 @@ def create_client(db:Session,client:schemas.ClientCreate,user_id:int):
     db.commit()
     db.refresh(db_client)
     return db_client
+
+
+
+#  get all the client 
 def get_clients(db:Session,user_id:int):
-    pass
+    clients=db.query(models.Client).all()
+    return clients
+
+
+# get a single client data 
+def get_client(db:Session,client_id:int):
+    client=db.query(models.Client).filter(models.Client.client_id==client_id).first()
+    return client
+
+
+def update_client(db: Session, db_client: models.Client, new_data:schemas.ClientUpdate):
+    new_data = new_data.model_dump()  # <--- convert pydantic model to dict
+
+    for key, value in new_data.items():
+        setattr(db_client, key, value)
+
+    db.commit()
+    db.refresh(db_client)
+    return db_client
+
+
+def delete_client(db:Session,client_id:int,user_id:int):
+    client=db.query(models.Client).filter(models.Client.client_id==client_id).first()
+    if not client:
+        return None
+    db.delete(client)
+    db.commit()
+    return True

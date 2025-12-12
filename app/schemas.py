@@ -68,3 +68,21 @@ class ClientOut(ClientBase):
 
     class Config:
         orm_mode = True
+
+
+
+class ClientUpdate(BaseModel):
+    name: str
+    date_of_birth: datetime
+    case_status: bool
+    insurance_provider: str | None
+    active_cases: int
+    gender: str
+    insurance_coverage_policy: int | None
+    id_number: str
+    primary_contact_number: str
+    secondary_contact_number: str | None
+    key_contact_name: str | None
+    contact_person_phone: str | None
+    home_address: str
+    email: str
