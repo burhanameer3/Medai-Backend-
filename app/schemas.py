@@ -1,6 +1,6 @@
 import enum
 from typing import Annotated, Optional
-from pydantic import BaseModel, constr, EmailStr, StringConstraints
+from pydantic import BaseModel, constr, EmailStr, StringConstraints,FileUrl
 from datetime import datetime
 UsernameStr = Annotated[str, StringConstraints(min_length=3, max_length=50, pattern=r"^[A-Za-z0-9_.\-\s]+$")]
 PasswordStr = Annotated[str, StringConstraints(min_length=8, max_length=72)]
@@ -43,6 +43,7 @@ class GenderEnum(str, enum.Enum):
 class ClientBase(BaseModel):
     name: str
     date_of_birth: datetime
+    profile_image: str | None = None
     case_status: bool
     insurance_provider: str | None = None
     active_cases: int | None = None
@@ -56,7 +57,6 @@ class ClientBase(BaseModel):
     home_address: str | None = None
     email: str | None = None
 
-
 class ClientCreate(ClientBase):
     pass
 
@@ -68,6 +68,7 @@ class ClientOut(ClientBase):
 
     class Config:
         orm_mode = True
+        # from_attributes = True/
 
 
 

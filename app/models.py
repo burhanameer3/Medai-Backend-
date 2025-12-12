@@ -32,6 +32,7 @@ class User(Base):
 class Client(Base):
     __tablename__="clients"
     client_id=Column(Integer,primary_key=True,index=True)
+    type_of_coverage=Column(String)
     profile_image=Column(String)
     name=Column(String,nullable=False,index=True)
     date_of_birth = Column(DateTime, nullable=False)

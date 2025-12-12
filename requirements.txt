@@ -7,3 +7,5 @@ python-jose      # for JWT (or pyjwt)
 python-multipart # for OAuth2 form parsing
 alembic
 email-validator
+cloudinary
+python-dotenv

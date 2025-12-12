@@ -3,6 +3,16 @@ from .db.base import engine, Base
 from app.routers import users,clients
 from fastapi.middleware.cors import CORSMiddleware
 from . import models  # noqa: F401 - Import models so SQLAlchemy knows about them
+import cloudinary
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+
+# Configure Cloudinary
+cloudinary.config(
+    secure=True
+)
 
 # create DB tables
 Base.metadata.create_all(bind=engine)
